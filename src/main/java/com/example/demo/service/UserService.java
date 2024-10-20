@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.model.User;
+import java.util.List;
 
-import com.example.demo.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.demo.model.User;
+import com.example.demo.repositories.UserRepository;
 
 @Service
 public class UserService {
@@ -14,7 +13,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     /*Конструктор*/
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
