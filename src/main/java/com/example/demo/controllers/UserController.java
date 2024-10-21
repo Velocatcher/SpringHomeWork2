@@ -1,9 +1,11 @@
 package com.example.demo.controllers;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -25,6 +27,7 @@ public class UserController {
      * Конструктор класса
      * @param userService сервис пользователей
      */
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -73,10 +76,22 @@ public class UserController {
         return "redirect:/users";
     }
 
+    /**
+     * Изменение данных пользователя
+     * @param id идентификатор пользователя
+     * @param model модель для передачи данных в представление
+     * @return представление для изменения данных
+     */
+    @GetMapping("/user-update/{id}")
     public String updateUserForm(@PathVariable("id") Integer id, Model model){
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "user-update";
+    }
+    @PostMapping("/user-update")
+    public String updateUser(@ModelAttribute("user") User user){
+        userService.updateUser(user);
+        return "redirect:/users";
     }
 
 }
